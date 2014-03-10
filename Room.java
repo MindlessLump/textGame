@@ -1,7 +1,10 @@
 package textGame;
 
+import java.util.ArrayList;
+
 public class Room {
 	String basicDesc = "";
+	ArrayList<Item> items = new ArrayList<Item>();
 	
 	/**
 	 * Sets the basic description of the room based upon the room number.
@@ -22,6 +25,13 @@ public class Room {
 	}
 	
 	public String toString() {
-		return "";
+		String output = basicDesc;
+		if(!items.isEmpty()) {
+			output = output + "You see the following items: " + items.toString();
+		}
+		else {
+			output = output + "You see nothing else of interest.";
+		}
+		return output;
 	}
 }
