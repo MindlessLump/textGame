@@ -1,7 +1,6 @@
 package textGame;
 
 import static java.lang.System.*;
-
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -26,7 +25,7 @@ public class Game {
 			out.print("You see a ");
 			for(Iterator<Key> k = currentLocation.getKeys().iterator(); k.hasNext();) {
 				Key key = (Key)k.next();
-				out.println(key.getKeyName().toLowerCase() + " key.");
+				out.println(key.getKeyName().toLowerCase());
 			}
 		}
 		
@@ -39,6 +38,10 @@ public class Game {
 			else
 				out.print(exit);
 		}
+	}
+	
+	public static void victory() {
+		out.println("\n\nYou win, sucker!\n\n");
 	}
 	
 	public static boolean command() {
@@ -55,9 +58,10 @@ public class Game {
 			if( (key.getKeyName().compareTo(input)== 0) || (key.getShortKeyName().compareTo(input) == 0) ) {
 				//Unlock the corresponding Exit
 				Setup.unlock(key);
+				Setup.remove(currentLocation, key);
 				
 				//Notify the user
-				out.println("You have picked up the " + key.getKeyName().toLowerCase() + " key. You hear a door somewhere unlock.");
+				out.println("You have picked up the " + key.getKeyName().toLowerCase() + ". You hear a door somewhere unlock.");
 				
 				//Event handled
 				return true;
@@ -83,7 +87,7 @@ public class Game {
 		
 		//If the code gets here, it's invalid
 		out.println("\nInvalid command.");
-		return false;
+		return true;
 	}
 	
 	public static void main(String args[]) throws FileNotFoundException {
@@ -96,7 +100,13 @@ public class Game {
 		while(more) {
 			if(command()) {
 				out.println("\n");
-				showLocation();
+				if(currentLocation.getTitle().equalsIgnoreCase("Throne Room")) {
+					victory();
+					more = false;
+				}
+				else {
+					showLocation();
+				}
 			}
 			else {
 				more = false;

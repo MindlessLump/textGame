@@ -35,6 +35,11 @@ public class Setup {
 		key.getReference().addExit(key.getUnlocks());
 	}
 	
+	//Removes a key from a location
+	public static void remove(Location loc, Key key) {
+		loc.removeKey(key);
+	}
+	
 	public static void initialize() throws FileNotFoundException {
 		//Input Location descriptions from file
 		File f = new File("src/textGame/Locations.txt");
@@ -123,5 +128,9 @@ public class Setup {
 		iron = new Key(2, loc13, new Exit(3, loc14));
 		gold = new Key(3, loc2, new Exit(1, loc15));
 		
+		//Put the keys into their finding locations
+		loc10.addKey(bronze);
+		loc7.addKey(iron);
+		loc14.addKey(gold);
 	}
 }
