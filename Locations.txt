@@ -1,0 +1,32 @@
+Lawn
+You approach a large, ancient mansion, surrounded by a tall iron fence. You think that you could climb the fence, given the need, but that's not why you are here, so you decide against it, for the time being. You're here to retrieve a mysterious item from the mansion, as a dare. The mansion has reportedly been abandoned for years, but there are endless rumors about the place. As you open the gate, you see on the porch a sphynx statue, similar to the one in Egypt, though this one has a nose. You cautiously make your way up the porch steps, watching and listening for movement.
+Porch
+As you get up the final step, the statue starts to move! The sphynx, which you now know to be alive and real, looks you over disdainfully.
+Entrance Hall
+<No Description>
+West Hall
+<No Description>
+Northwest Storage
+<No Description>
+Southwest Storage
+<No Description>
+Common Lounge
+<No Description>
+Baths
+<No Description>
+Dorms
+<No Description>
+East Hall
+<No Description>
+Southeast Storage
+<No Description>
+Northeast Storage
+<No Description>
+Mess Hall
+<No Description>
+Kitchen
+<No Description>
+Basement
+<No Description>
+Throne Room
+<No Description>
