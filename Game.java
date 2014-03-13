@@ -1,14 +1,19 @@
 package textGame;
 
 import static java.lang.System.*;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 	private static Location currentLocation;
 	static Scanner kb = new Scanner(in);
+	private static String[] riddles = new String[8];
+	private static String[] answers = new String[8];
 	boolean hasBronzeKey;
 	boolean hasIronKey;
 	boolean hasGoldKey;
@@ -30,14 +35,54 @@ public class Game {
 		}
 		
 		//Exits
-		out.print("Available exits: ");
-		for(Enumeration<Exit> e = currentLocation.getExits().elements(); e.hasMoreElements();) {
-			Exit exit = (Exit)e.nextElement();
-			if(e.hasMoreElements())
-				out.print(exit + ", ");
-			else
-				out.print(exit);
+		if(!currentLocation.getExits().isEmpty()) {
+			out.print("Available exits: ");
+			for(Enumeration<Exit> e = currentLocation.getExits().elements(); e.hasMoreElements();) {
+				Exit exit = (Exit)e.nextElement();
+				if(e.hasMoreElements())
+					out.print(exit + ", ");
+				else
+					out.print(exit);
+			}
 		}
+	}
+	
+	//The riddle game with the sphynx
+	public static Boolean sphynx() throws FileNotFoundException {
+		out.println("She - You assume it's a she, because of her smooth voice - addresses you: \"To pass, you must answer three riddles. Are you ready to begin?\"\nYou know that you don't have a choice, so you agree.");
+		Scanner file = new Scanner(new File("src/textGame/Riddles.txt"));
+		int j = 0;
+		boolean even = true;
+		while(file.hasNext()) {
+			if(even) {
+				riddles[j] = file.nextLine();
+				even = false;
+			}
+			else {
+				answers[j] = file.nextLine();
+				even = true;
+				j++;
+			}
+		}
+		file.close();
+		Random rand = new Random();
+		int i = 0, r = 0;
+		
+		while(i < 3) {
+			r = rand.nextInt(8);
+			out.println("\n\"" + riddles[r] + "\"");
+			String ans = kb.nextLine();
+			if(ans.equalsIgnoreCase(answers[r]) || ans.equalsIgnoreCase("a " + answers[r])) {
+				out.println("\"Very good.\"");
+				i++;
+			}
+			else {
+				out.println("\"You fail. Better luck next time. Or not.\"");
+				i = 3;
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static void victory() {
@@ -103,6 +148,17 @@ public class Game {
 				if(currentLocation.getTitle().equalsIgnoreCase("Throne Room")) {
 					victory();
 					more = false;
+				}
+				else if(currentLocation.getTitle().equalsIgnoreCase("Porch")) {
+					showLocation();
+					if(sphynx()) {
+						Setup.loc1.addExit(new Exit(1, Setup.loc2));
+						Setup.loc1.addExit(new Exit(2, Setup.loc0));
+						out.println("\nAvailable Exits:\nNORTH, SOUTH");
+					}
+					else {
+						more = false;
+					}
 				}
 				else {
 					showLocation();

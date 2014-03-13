@@ -82,9 +82,6 @@ public class Setup {
 		//Assign Exit Vectors for each Location
 		loc0.addExit(new Exit(1, loc1));
 		
-		loc1.addExit(new Exit(1, loc2));
-		loc1.addExit(new Exit(2, loc0));
-		
 		loc2.addExit(new Exit(2, loc1));
 		loc2.addExit(new Exit(4, loc3));
 		loc2.addExit(new Exit(3, loc9));
