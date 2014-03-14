@@ -49,7 +49,7 @@ public class Game {
 	
 	//The riddle game with the sphynx
 	public static Boolean sphynx() throws FileNotFoundException {
-		out.println("She - You assume it's a she, because of her smooth voice - addresses you: \"To pass, you must answer three riddles. Are you ready to begin?\"\nYou know that you don't have a choice, so you agree.");
+		out.println("\nShe - You assume it's a she, because of her smooth voice - addresses you: \"To pass, you must answer three riddles. Are you ready to begin?\"\nYou know that you don't have a choice, so you agree.");
 		Scanner file = new Scanner(new File("src/textGame/Riddles.txt"));
 		int j = 0;
 		boolean even = true;
