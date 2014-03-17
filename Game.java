@@ -1,7 +1,6 @@
 package textGame;
 
 import static java.lang.System.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
