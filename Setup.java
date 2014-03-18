@@ -21,25 +21,25 @@ public class Setup {
 	public static Location loc13;
 	public static Location loc14;
 	public static Location loc15;
-	
+
 	public static Key bronze;
 	public static Key iron;
 	public static Key gold;
-	
+
 	public Setup() {
-		
+
 	}
-	
+
 	//Creates ("Unlocks") the assigned Exit for a key
 	public static void unlock(Key key) {
 		key.getReference().addExit(key.getUnlocks());
 	}
-	
+
 	//Removes a key from a location
 	public static void remove(Location loc, Key key) {
 		loc.removeKey(key);
 	}
-	
+
 	public static void initialize() throws FileNotFoundException {
 		//Input Location descriptions from file
 		File f = new File("src/textGame/Locations.txt");
@@ -60,7 +60,7 @@ public class Setup {
 			}
 		}
 		file.close();
-		
+
 		//Initialize all Locations
 		loc0 = new Location(names[0], descriptions[0]);
 		loc1 = new Location(names[1], descriptions[1]);
@@ -78,53 +78,53 @@ public class Setup {
 		loc13 = new Location(names[13], descriptions[13]);
 		loc14 = new Location(names[14], descriptions[14]);
 		loc15 = new Location(names[15], descriptions[15]);
-		
+
 		//Assign Exit Vectors for each Location
 		loc0.addExit(new Exit(1, loc1));
-		
+
 		loc2.addExit(new Exit(2, loc1));
 		loc2.addExit(new Exit(4, loc3));
 		loc2.addExit(new Exit(3, loc9));
-		
+
 		loc3.addExit(new Exit(3, loc2));
 		loc3.addExit(new Exit(1, loc4));
 		loc3.addExit(new Exit(2, loc5));
-		
+
 		loc4.addExit(new Exit(2, loc3));
-		
+
 		loc5.addExit(new Exit(1, loc3));
-		
+
 		loc6.addExit(new Exit(3, loc3));
 		loc6.addExit(new Exit(2, loc7));
 		loc6.addExit(new Exit(1, loc8));
-		
+
 		loc7.addExit(new Exit(1, loc6));
-		
+
 		loc8.addExit(new Exit(2, loc6));
-		
+
 		loc9.addExit(new Exit(4, loc2));
 		loc9.addExit(new Exit(2, loc10));
 		loc9.addExit(new Exit(1, loc11));
 		loc9.addExit(new Exit(3, loc12));
-		
+
 		loc10.addExit(new Exit(1, loc9));
-		
+
 		loc11.addExit(new Exit(2, loc9));
-		
+
 		loc12.addExit(new Exit(4, loc9));
 		loc12.addExit(new Exit(1, loc13));
-		
+
 		loc13.addExit(new Exit(2, loc12));
-		
+
 		loc14.addExit(new Exit(4, loc13));
-		
+
 		loc15.addExit(new Exit(2, loc2));
-		
+
 		//Initialize all keys
 		bronze = new Key(1, loc3, new Exit(4, loc6));
 		iron = new Key(2, loc13, new Exit(3, loc14));
 		gold = new Key(3, loc2, new Exit(1, loc15));
-		
+
 		//Put the keys into their finding locations
 		loc10.addKey(bronze);
 		loc7.addKey(iron);

@@ -6,18 +6,18 @@ public class Key {
 	public static final int BRONZE = 1;
 	public static final int IRON = 2;
 	public static final int GOLD = 3;
-	
+
 	//String key codes
 	public static final String[] keyName = {"UNDEFINED","BRONZE KEY","IRON KEY","GOLD KEY"};
 	public static final String[] shortKeyName = {"NULL","BRONZE","IRON","GOLD"};
-	
+
 	//Other variables
 	private Location reference = null;
 	private Exit unlocks = null;
 	private int key;
 	private String name;
 	private String shortName;
-	
+
 	/*
 	 * Empty constructor
 	 */
@@ -28,7 +28,7 @@ public class Key {
 		name = keyName[UNDEFINED];
 		shortName = shortKeyName[UNDEFINED];
 	}
-	
+
 	/*
 	 * Full constructor
 	 */
@@ -43,28 +43,28 @@ public class Key {
 		reference = origin;
 		unlocks = unlock;
 	}
-	
+
 	/*
 	 * toString method
 	 */
 	public String toString() {
 		return name;
 	}
-	
+
 	/*
 	 * Returns key name
 	 */
 	public String getKeyName() {
 		return name;
 	}
-	
+
 	/*
 	 * Returns short key name
 	 */
 	public String getShortKeyName() {
 		return shortName;
 	}
-	
+
 	/*
 	 * Assigns unlock exit
 	 */
@@ -72,21 +72,21 @@ public class Key {
 		reference = origin;
 		unlocks = lock;
 	}
-	
+
 	/*
 	 * Returns unlock exit
 	 */
 	public Exit getUnlocks() {
 		return unlocks;
 	}
-	
+
 	/*
 	 * Assigns reference Location
 	 */
 	public void setReference(Location loc) {
 		reference = loc;
 	}
-	
+
 	/*
 	 * Returns reference Location
 	 */

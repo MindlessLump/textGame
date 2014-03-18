@@ -8,7 +8,7 @@ public class Location {
 	private String roomDescription;
 	private Vector<Exit> vecExits = new Vector<Exit>();
 	private ArrayList<Key> listKeys = new ArrayList<Key>();
-	
+
 	/*
 	 * Blank constructor
 	 */
@@ -17,18 +17,18 @@ public class Location {
 		roomTitle = "";
 		roomDescription = "";
 	}
-	
+
 	/*
 	 * Partial constructor
 	 */
 	public Location(String title) {
 		//Assign title
 		roomTitle = title;
-		
+
 		//Blank description
 		roomDescription = "";
 	}
-	
+
 	/*
 	 * Full constructor
 	 */
@@ -36,25 +36,25 @@ public class Location {
 		//Assign title and description
 		roomTitle = title;
 		roomDescription = description;
-		
+
 		//Blank exits
 		vecExits = new Vector<Exit>();
 	}
-	
+
 	/*
 	 * toString method
 	 */
 	public String toString() {
 		return roomTitle;
 	}
-	
+
 	/*
 	 * Adds a key to this location
 	 */
 	public void addKey(Key key) {
 		listKeys.add(key);
 	}
-	
+
 	/*
 	 * Removes a key from this location
 	 */
@@ -63,7 +63,7 @@ public class Location {
 			listKeys.remove(key);
 		}
 	}
-	
+
 	/*
 	 * Returns an ArrayList of Keys
 	 */
@@ -71,14 +71,14 @@ public class Location {
 	public ArrayList<Key> getKeys() {
 		return (ArrayList<Key>)listKeys.clone();
 	}
-	
+
 	/*
 	 * Adds an exit to this location
 	 */
 	public void addExit(Exit exit) {
 		vecExits.addElement(exit);
 	}
-	
+
 	/*
 	 * Removes an exit from this location
 	 */
@@ -87,7 +87,7 @@ public class Location {
 			vecExits.removeElement(exit);
 		}
 	}
-	
+
 	/*
 	 * Returns a Vector of Exits
 	 */
@@ -95,28 +95,28 @@ public class Location {
 	public Vector<Exit> getExits() {
 		return (Vector<Exit>)vecExits.clone();
 	}
-	
+
 	/*
 	 * Returns location title
 	 */
 	public String getTitle() {
 		return roomTitle;
 	}
-	
+
 	/*
 	 * Assigns location title
 	 */
 	public void setTitle(String title) {
 		roomTitle = title;
 	}
-	
+
 	/*
 	 * Returns location description
 	 */
 	public String getDescription() {
 		return roomDescription;
 	}
-	
+
 	/*
 	 * Assigns location description
 	 */

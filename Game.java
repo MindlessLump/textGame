@@ -16,14 +16,14 @@ public class Game {
 	boolean hasBronzeKey;
 	boolean hasIronKey;
 	boolean hasGoldKey;
-	
+
 	private static void showLocation(){
 		//Title
 		out.println("[" + currentLocation.getTitle() + "]");
-		
+
 		//Description
 		out.println(currentLocation.getDescription() + "\n");
-		
+
 		//Items
 		if(!currentLocation.getKeys().isEmpty()) {
 			out.print("You see a ");
@@ -32,7 +32,7 @@ public class Game {
 				out.println(key.getKeyName().toLowerCase());
 			}
 		}
-		
+
 		//Exits
 		if(!currentLocation.getExits().isEmpty()) {
 			out.print("Available exits: ");
@@ -45,7 +45,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	//The riddle game with the sphynx
 	public static Boolean sphynx() throws FileNotFoundException {
 		out.println("\nShe - You assume it's a she, because of her smooth voice - addresses you: \"To pass, you must answer three riddles. Are you ready to begin?\"\nYou know that you don't have a choice, so you agree.");
@@ -66,7 +66,7 @@ public class Game {
 		file.close();
 		Random rand = new Random();
 		int i = 0, r = 0;
-		
+
 		while(i < 3) {
 			r = rand.nextInt(8);
 			out.println("\n\"" + riddles[r] + "\"");
@@ -83,64 +83,64 @@ public class Game {
 		}
 		return true;
 	}
-	
+
 	public static void victory() {
 		out.println("\n\nYou win, sucker!\n\n");
 	}
-	
+
 	public static boolean command() {
 		out.println();
 		String input = kb.nextLine();
-		
+
 		//Convert to uppercase for comparison
 		input = input.toUpperCase();
-		
+
 		//Search for an item match
 		for(Iterator<Key> k = currentLocation.getKeys().iterator(); k.hasNext();) {
 			Key key = (Key)k.next();
-			
+
 			if( (key.getKeyName().compareTo(input)== 0) || (key.getShortKeyName().compareTo(input) == 0) ) {
 				//Unlock the corresponding Exit
 				Setup.unlock(key);
 				Setup.remove(currentLocation, key);
-				
+
 				//Notify the user
 				out.println("You have picked up the " + key.getKeyName().toLowerCase() + ". You hear a door somewhere unlock.");
-				
+
 				//Event handled
 				return true;
-				
+
 			}
 		}
-		
+
 		//Search for an exit match
 		for(Enumeration<Exit> e = currentLocation.getExits().elements(); e.hasMoreElements();) {
 			Exit exit = (Exit)e.nextElement();
-			
+
 			if( (exit.getDirectionName().compareTo(input) == 0) || (exit.getShortDirectionName().compareTo(input) == 0) ) {
 				//Set currentLocation to the location pointed to by the exit
 				currentLocation = exit.getLeadsTo();
-				
+
 				//Notify the user
 				out.println("You go " + exit.getDirectionName().toLowerCase() + ".");
-				
+
 				//Event handled
 				return true;
 			}
 		}
-		
+
 		//If the code gets here, it's invalid
 		out.println("\nInvalid command.");
 		return true;
 	}
-	
+
 	public static void main(String args[]) throws FileNotFoundException {
 		Setup.initialize();
 		currentLocation = Setup.loc0;
 		Boolean more = true;
-		
+
 		showLocation();
-		
+
 		while(more) {
 			if(command()) {
 				out.println("\n");

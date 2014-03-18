@@ -3,30 +3,30 @@ You approach a large, ancient mansion, surrounded by a tall iron fence. You thin
 Porch
 As you get up the final step, the statue starts to move! The sphynx, which you now know to be alive and real, looks you over disdainfully.
 Entrance Hall
-<No Description>
+You enter the old mansion, your eyes adjusting from the bright sunshine outside to the dim, unlit interior. Even with your eyes adjusted, you can make out little amongst the shadows and cobwebs. You remember the flashlight you brought with you, and turn it on. The light illuminates the room, and you can soon see clearly enough to identify objects around you. There isn't any furniture, but you see a large chandelier hanging from the ceiling, and an old grandfather clock sitting silent, motionless, and despondent in a corner.
 West Hall
-<No Description>
+You are in the western hallway of the mansion. There are doors to your left and right, and another one at the end of the hallway. Except for some candlebrackets in the walls, the hall is otherwise empty.
 Northwest Storage
-<No Description>
+You open the door to reveal what seems to have been a storage cupboard, but it is bare now. Even the shelves have been taken.
 Southwest Storage
-<No Description>
+You open the door to reveal what seems to have been a storage cupboard, but it is bare now. Even the shelves have been taken.
 Common Lounge
-<No Description>
+You walk into a room with several armchairs, all covered with while cloth - it was white at some point. These days, though, it's the ugly gray of dust.
 Baths
-<No Description>
+You enter the room, and hear the soft splashing of water in a pool. You realize that you are in an indoor swimming pool, possibly used for bathing. The water has clearly been there for years, as it is murky and unclean.
 Dorms
-<No Description>
+You see several doors ahead of you, and an inspection of each reveals that this is a dormitory area, with smaller bunk rooms behind each door.
 East Hall
-<No Description>
+You are in the eastern hallway of the mansion. There are doors to your left and right, and another one at the end of the hallway. Except for some candlebrackets in the walls, the hall is otherwise empty.
 Southeast Storage
-<No Description>
+You open the door to reveal what seems to have been a storage cupboard, but it is bare now. Even the shelves have been taken.
 Northeast Storage
-<No Description>
+You open the door to reveal what seems to have been a storage cupboard, but it is bare now. Even the shelves have been taken.
 Mess Hall
-<No Description>
+Behind the door, you see several long, wooden tables with benches in a large mess hall. The wood is rotting, and several of the tables and benches have collapsed under their own weight.
 Kitchen
-<No Description>
+You see a few long metal food preparation tables, which are not stainless steel, as evidenced by the several stains spotted along their length.
 Basement
-<No Description>
+You open the door to reveal old stone steps leading down. You slowly follow them, but the hallway suddenly stops. The rest has been bricked up.
 Throne Room
-<No Description>
+You see a large safe sitting on a desk. There is nothing else in the room. You are worried that you will ultimately fail, due to the safe being locked, but upon testing the door, you find the safe to be unlocked.
