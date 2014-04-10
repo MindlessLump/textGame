@@ -27,4 +27,4 @@
   - Puts in the `Exits`
   - Puts in the `Items`
   - Prints location descriptions, listens for player input, and processes commands
-  - *Randomly selects `Item`s from a pool?*
+  - *Randomly selects `Items` from a pool?*
