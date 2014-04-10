@@ -12,7 +12,7 @@
   - Can be locked/unlocked
 
 ### Player class
-  - Has an inventory of `Item`s
+  - Has an inventory of `Items`
   - Has a current `Location`
   - *Has stats, e.g. Health, Strength, Speed?*
 
@@ -20,11 +20,11 @@
   - Has a description
   - Has a name
   - Can be used
-  - Can unlock `Exit`s
+  - Can unlock `Exits`
 
 ### Runner class
-  - Initializes the `Location`s
-  - Puts in the `Exit`s
-  - Puts in the `Item`s
+  - Initializes the `Locations`
+  - Puts in the `Exits`
+  - Puts in the `Items`
   - Prints location descriptions, listens for player input, and processes commands
   - *Randomly selects `Item`s from a pool?*
