@@ -11,6 +11,12 @@
   - Has a `Location` that it points to
   - Can be locked/unlocked
 
+### Character class
+  - Has an inventory of `Items`
+  - Can ask for an item
+  - Can give items to the `Player`
+  - Can hold a conversation with the player
+
 ### Player class
   - Has an inventory of `Items`
   - Has a current `Location`
