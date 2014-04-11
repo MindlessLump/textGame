@@ -7,7 +7,6 @@ public class Exit {
 	public static final int SOUTH = 2;
 	public static final int EAST = 3;
 	public static final int WEST = 4;
-	public static final int OUT = 12;
 
 	//String codes
 	public static final String[] dirName = {"UNDEFINED","NORTH","SOUTH","EAST","WEST"};
@@ -18,10 +17,9 @@ public class Exit {
 	private int direction;
 	private String directionName;
 	private String shortDirectionName;
+	private String description;
 
-	/*
-	 * Empty constructor
-	 */
+	//Empty constructor - Sets everything blank
 	public Exit() {
 		direction = Exit.UNDEFINED;
 		leadsTo = null;
@@ -29,9 +27,7 @@ public class Exit {
 		shortDirectionName = shortDirName[UNDEFINED];
 	}
 
-	/*
-	 * Full constructor
-	 */
+	//Full constructor - Sets the direction, direction names, and target Location
 	public Exit(int dir, Location leads) {
 		direction = dir;
 		if(dir <= dirName.length) {
@@ -43,58 +39,49 @@ public class Exit {
 		leadsTo = leads;
 	}
 
-	/*
-	 * toString method
-	 */
-	public String toString() {
-		return directionName;
-	}
-
-	/*
-	 * Assigns direction name
-	 */
+	//Sets the direction name
 	public void setDirectionName(String dirname)
 	{
 		directionName = dirname;
 	}
 
-	/*
-	 * Returns direction name
-	 */
+	//Returns the direction name
 	public String getDirectionName()
 	{
 		return directionName;
 	}
 
-	/*
-	 * Assigns short direction name
-	 */
-	public void setShortDirectionName (String shortName)
+	//Sets the short direction name
+	public void setShortDirectionName(String shortName)
 	{
 		shortDirectionName = shortName;
 	}
 
-	/*
-	 * Returns short direction name
-	 */
-	public String getShortDirectionName ()
+	//Returns the short direction name
+	public String getShortDirectionName()
 	{
 		return shortDirectionName;
 	}
 
-	/*
-	 * Assigns location
-	 */
-	public void setLeadsTo (Location leads)
+	//Sets the target location
+	public void setLeadsTo(Location leads)
 	{
 		leadsTo = leads;
 	}
 
-	/*
-	 * Returns location
-	 */
-	public Location getLeadsTo ()
+	//Returns the target location
+	public Location getLeadsTo()
 	{
 		return leadsTo;
+	}
+	
+	//Sets the description
+	public void setDescription(String s) {
+		description = s;
+	}
+	
+	//Returns the description
+	public String getDescription() {
+		return description;
 	}
 }
