@@ -8,7 +8,7 @@ import java.util.Vector;
 public class Location {
 	private Vector<Exit> exits = new Vector<Exit>();
 	private ArrayList<Item> items = new ArrayList<Item>();
-	private ArrayList<Character> characters = new ArrayList<Character>();
+	private String placeName;
 	private String basicDescription;
 	
 	//Empty constructor - Sets the description to a blank String
@@ -17,7 +17,8 @@ public class Location {
 	}
 	
 	//Full constructor - Sets the description to the given String
-	public Location(String desc) {
+	public Location(String name, String desc) {
+		placeName = name;
 		basicDescription = desc;
 	}
 	
@@ -64,22 +65,6 @@ public class Location {
 		return items;
 	}
 	
-	//Adds a character to the list
-	public void addCharacter(Character c) {
-		characters.add(c);
-	}
-	
-	//Removes a character from the list
-	public void removeCharacter(Character c) {
-		if(characters.contains(c))
-			characters.remove(c);
-	}
-	
-	//Returns the list of characters
-	public ArrayList<Character> getCharacters() {
-		return characters;
-	}
-	
 	//Sets the basic location description to a given String
 	public void setDescription(String desc) {
 		basicDescription = desc;
@@ -92,24 +77,16 @@ public class Location {
 	
 	//Prints out the location description, along with any items, characters, and exits
 	public String toString() {
+		//Place name
+		String output = placeName + "\n";
 		//Basic description
-		String output = basicDescription;
+		output += basicDescription;
 		//Items
 		if(!items.isEmpty()) {
 			output += "\nYou notice:\n";
 			for(Iterator<Item> iter = this.getItems().iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				output += "\t" + i.getPlaceDescription();
-				if(iter.hasNext())
-					output += "\n";
-			}
-		}
-		//Characters
-		if(!characters.isEmpty()) {
-			output += "\nIn the room, you see:\n";
-			for(Iterator<Character> iter = this.getCharacters().iterator(); iter.hasNext();) {
-				Character c = iter.next();
-				output += "\t" + c.getPhysicalDescription();
 				if(iter.hasNext())
 					output += "\n";
 			}

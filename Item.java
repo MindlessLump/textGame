@@ -14,9 +14,18 @@ public class Item {
 	}
 	
 	//Full constructor
-	public Item(String place, String item) {
+	public Item(String place, String item, String pickup, String use, int uses) {
 		placeDescription = place;
 		itemDescription = item;
+		onPickup = pickup;
+		onUse = use;
+		if(uses < 0) {
+			infinite = true;
+		}
+		else {
+			infinite = false;
+			itemUses = uses;
+		}
 	}
 	
 	//Set the place description

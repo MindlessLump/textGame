@@ -18,6 +18,7 @@ public class Exit {
 	private String directionName;
 	private String shortDirectionName;
 	private String description;
+	private boolean locked;
 
 	//Empty constructor - Sets everything blank
 	public Exit() {
@@ -27,8 +28,8 @@ public class Exit {
 		shortDirectionName = shortDirName[UNDEFINED];
 	}
 
-	//Full constructor - Sets the direction, direction names, and target Location
-	public Exit(int dir, Location leads) {
+	//Full constructor - Sets the direction and names, target location, and description
+	public Exit(int dir, Location leads, String desc, boolean lock) {
 		direction = dir;
 		if(dir <= dirName.length) {
 			directionName = dirName[direction];
@@ -37,6 +38,8 @@ public class Exit {
 			shortDirectionName = shortDirName[direction];
 		}
 		leadsTo = leads;
+		description = desc;
+		locked = lock;
 	}
 
 	//Sets the direction name
@@ -83,5 +86,20 @@ public class Exit {
 	//Returns the description
 	public String getDescription() {
 		return description;
+	}
+	
+	//Locks the door
+	public void setLocked() {
+		locked = true;
+	}
+	
+	//Unlocks the door
+	public void setUnlocked() {
+		locked = false;
+	}
+	
+	//Return whether the door is locked
+	public boolean isLocked() {
+		return locked;
 	}
 }
