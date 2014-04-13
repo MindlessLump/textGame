@@ -33,14 +33,11 @@
     * An onUse command
     * Number of uses (-# for infinite)
 
-#### Player class
-  - Has an inventory of `Items`
-  - Has a current `Location`
-  - *Has stats, e.g. Health, Strength, Speed?*
+#### Background class
+  - Contains the player variables (current location and inventory)
+  - Interacts with Location, Exit, and Item classes
+  - Runner class only interacts with Background class
 
 #### Runner class
-  - Initializes the `Locations`
-  - Puts in the `Exits`
-  - Puts in the `Items`
-  - Prints location descriptions, listens for player input, and processes commands
-  - *Randomly selects `Items` from a pool?*
+  - Should only handle logic and call methods of the Background class.
+  - The Background class will handle the rest
