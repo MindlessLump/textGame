@@ -1,6 +1,7 @@
 package textGame;
 
 public class Item {
+	private String itemName; //Name of the item, to be used by the command handler
 	private String placeDescription; //Description of where the item is found
 	private String itemDescription; //Description of the item itself
 	private String onPickup; //Contains a command to be carried out when the item is picked up
@@ -14,7 +15,8 @@ public class Item {
 	}
 	
 	//Full constructor
-	public Item(String place, String item, String pickup, String use, int uses) {
+	public Item(String name, String place, String item, String pickup, String use, int uses) {
+		itemName = name;
 		placeDescription = place;
 		itemDescription = item;
 		onPickup = pickup;
@@ -26,6 +28,16 @@ public class Item {
 			infinite = false;
 			itemUses = uses;
 		}
+	}
+	
+	//Set the item name
+	public void setItemName(String name) {
+		itemName = name;
+	}
+	
+	//Return the item name
+	public String getItemName() {
+		return itemName;
 	}
 	
 	//Set the place description
