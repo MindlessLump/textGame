@@ -90,7 +90,7 @@ public class Background {
 			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				if(input.substring(4).equalsIgnoreCase(i.getItemName())) {
-					this.addInventory(i);
+					addInventoryItem(i);
 					currentLocation.removeItem(i);
 					i.doPickup();
 					out.println("You pick up the " + i.getItemName() + ".");
@@ -101,7 +101,7 @@ public class Background {
 			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
-					this.addInventory(i);
+					addInventoryItem(i);
 					currentLocation.removeItem(i);
 					i.doPickup();
 					out.println("You pick up the " + i.getItemName() + ".");
@@ -112,7 +112,7 @@ public class Background {
 			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
-					this.addInventory(i);
+					addInventoryItem(i);
 					currentLocation.removeItem(i);
 					i.doPickup();
 					out.println("You pick up the " + i.getItemName() + ".");
@@ -121,12 +121,151 @@ public class Background {
 		}
 		
 		//Handle looking at the player inventory
+		if(input.equalsIgnoreCase("i") || input.equalsIgnoreCase("inventory")) {
+			if(inventory.isEmpty()) {
+				out.println("Your inventory is empty.");
+			}
+			else {
+				out.println("In your inventory, you find: ");
+				for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+					Item i = iter.next();
+					out.println("\t" + i.getItemDescription());
+				}
+			}
+		}
+		
 		//Handle looking at an item in the inventory/in the location
+		if(input.substring(0,4).equalsIgnoreCase("look")) {
+			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
+					out.println("Location: " + i.getItemDescription());
+				}
+			}
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
+					out.println("Inventory: " + i.getItemDescription());
+				}
+			}
+		}
+		else if(input.substring(0,7).equalsIgnoreCase("look at")) {
+			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println(i.getItemDescription());
+				}
+			}
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println("Inventory: " + i.getItemDescription());
+				}
+			}
+		}
+		else if(input.substring(0,7).equalsIgnoreCase("examine")) {
+			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println(i.getItemDescription());
+				}
+			}
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println("Inventory: " + i.getItemDescription());
+				}
+			}
+		}
+		else if(input.substring(0,7).equalsIgnoreCase("inspect")) {
+			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println(i.getItemDescription());
+				}
+			}
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(8).equalsIgnoreCase(i.getItemName())) {
+					out.println("Inventory: " + i.getItemDescription());
+				}
+			}
+		}
+		
 		//Handle using an item
+		if(input.substring(0,3).equalsIgnoreCase("use")) {
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				String temp[] = input.substring(4).split(" ");
+				if(input.substring(4).equalsIgnoreCase(i.getItemName())) { //If there is no target object, use the blank use command
+					i.doUse();
+				}
+				else if(temp[0].equalsIgnoreCase(i.getItemName())) { //If there is a target object, use the targeted command
+					i.doTargetUse(temp[1]);
+				}
+			}
+		}
+		
 		//Handle an onPickup command
+		/**
+		 * To go here: Code specifically for handling items' onPickup commands
+		 */
+		
 		//Handle an onUse command
+		/**
+		 * To go here: Code specifically for handling items' onUse commands
+		 */
+		
+		//Handle an onTargetUse command
+		/**
+		 * To go here: Code specifically for handling items' onTargetUse commands
+		 */
+		
 		//Handle dropping an item
+		if(input.substring(0,4).equalsIgnoreCase("drop")) {
+			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
+				Item i = iter.next();
+				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
+					removeInventoryItem(i);
+					currentLocation.addItem(i);
+					out.println("You drop the " + i.getItemName());
+				}
+			}
+		}
+		
 		//Handle going through an exit
+		if(input.substring(0,2).equalsIgnoreCase("go")) {
+			input = input.substring(3);
+		}
+		if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("north")) {
+			if(currentLocation.hasExit("north")) {
+				currentLocation = currentLocation.getExits().get(1).getLeadsTo();
+				describeLocation();
+			}
+		}
+		else if(input.equalsIgnoreCase("e") || input.equalsIgnoreCase("east")) {
+			if(currentLocation.hasExit("east")) {
+				currentLocation = currentLocation.getExits().get(3).getLeadsTo();
+				describeLocation();
+			}
+		}
+		else if(input.equalsIgnoreCase("s") || input.equalsIgnoreCase("south")) {
+			if(currentLocation.hasExit("south")) {
+				currentLocation = currentLocation.getExits().get(2).getLeadsTo();
+				describeLocation();
+			}
+		}
+		else if(input.equalsIgnoreCase("w") || input.equalsIgnoreCase("west")) {
+			if(currentLocation.hasExit("west")) {
+				currentLocation = currentLocation.getExits().get(4).getLeadsTo();
+				describeLocation();
+			}
+		}
+	}
+	
+	//Prints out the Location String, describing, it and its contents
+	public void describeLocation() {
+		out.println(currentLocation.toString());
 	}
 	
 	//Add a location to the map
@@ -185,19 +324,14 @@ public class Background {
 	}
 	
 	//Add an item to the inventory
-	public void addInventory(Item i) {
+	public void addInventoryItem(Item i) {
 		inventory.add(i);
 	}
 	
 	//Remove an item from the inventory
-	public void removeInventory(Item i) {
+	public void removeInventoryItem(Item i) {
 		if(inventory.contains(i))
 			inventory.remove(i);
-	}
-	
-	//Return the inventory
-	public ArrayList<Item> getInventory(Item i) {
-		return inventory;
 	}
 	
 	//Empty method to make warnings about unused variables go away

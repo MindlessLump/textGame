@@ -6,6 +6,7 @@ public class Item {
 	private String itemDescription; //Description of the item itself
 	private String onPickup; //Contains a command to be carried out when the item is picked up
 	private String onUse; //Contains a command to be carried out when the item is used
+	private String onTargetUse; //Contains a command with a specific target, to be carried out when the item is used
 	private boolean infinite; //Whether the item can be used an infinite number of times
 	private int itemUses;
 	
@@ -88,7 +89,8 @@ public class Item {
 	
 	//Perform the onPickup command
 	public void doPickup() {
-		Background.doCommand(onPickup);
+		Background b = new Background();
+		b.doCommand(onPickup);
 	}
 	
 	//Set the onUse command
@@ -98,7 +100,16 @@ public class Item {
 	
 	//Perform the onUse command
 	public void doUse() {
-		Background.doCommand(onUse);
+		Background b = new Background();
+		b.doCommand(onUse);
+		if(!this.isInfinite())
+			itemUses--;
+	}
+	
+	//Perform the onUse command, with a target object
+	public void doTargetUse(String target) {
+		Background b = new Background();
+		b.doCommand(onTargetUse);
 		if(!this.isInfinite())
 			itemUses--;
 	}
