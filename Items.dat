@@ -4,5 +4,6 @@ Place description
 Item description
 onPickup command
 onUse command
+onTargetUse command
 Number of uses
 //Skip a line for readability

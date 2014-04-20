@@ -12,11 +12,11 @@ import static java.lang.System.*;
 
 public class Background {
 	//List of map locations, sorted by a given number
-	private Map<Integer,Location> map = new HashMap<Integer,Location>();
+	private static Map<Integer,Location> map = new HashMap<Integer,Location>();
 	
 	//Player variables
-	private Location currentLocation;
-	private ArrayList<Item> inventory = new ArrayList<Item>();
+	private static Location currentLocation;
+	private static ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	//Empty constructor
 	public Background() {
@@ -24,7 +24,7 @@ public class Background {
 	}
 	
 	//Creates map-specific Locations, Exits, and Items from individual text files
-	public void initialize() throws FileNotFoundException {
+	public static void initialize() throws FileNotFoundException {
 		//Get Location information from the text file
 		File f = new File("src/textGame/Locations.dat");
 		Scanner file = new Scanner(f);
@@ -63,7 +63,7 @@ public class Background {
 		//Get Item information from the text file
 		f = new File("src/textGame/Items.dat");
 		file = new Scanner(f);
-		String tempItemName, tempPlace, tempPlaceDescription, tempItemDescription, tempPickup, tempUse, tempUses;
+		String tempItemName, tempPlace, tempPlaceDescription, tempItemDescription, tempPickup, tempUse, tempTargetUse, tempUses;
 		int place, uses;
 		while(file.hasNext()) {
 			tempItemName = file.nextLine();
@@ -72,19 +72,23 @@ public class Background {
 			tempItemDescription = file.nextLine();
 			tempPickup = file.nextLine();
 			tempUse = file.nextLine();
+			tempTargetUse = file.nextLine();
 			tempUses = file.nextLine();
 			place = Integer.parseInt(tempPlace);
 			uses = Integer.parseInt(tempUses);
-			map.get(place).addItem(new Item(tempItemName, tempPlaceDescription, tempItemDescription, tempPickup, tempUse, uses));
+			map.get(place).addItem(new Item(tempItemName, tempPlaceDescription, tempItemDescription, tempPickup, tempUse, tempTargetUse, uses));
 			notUsed = file.nextLine(); //Skip a line for file readability
 		}
 		file.close();
 		
-		this.doNothingString(notUsed); //Make warnings about unused variables go away
+		//Set the player in the start location
+		currentLocation = map.get(0);
+		
+		doNothingString(notUsed); //Make warnings about unused variables go away
 	}
 	
 	//Handle a String command
-	public void doCommand(String input) {
+	public static void doCommand(String input) {
 		//Handle picking up items
 		if(input.substring(0,3).equalsIgnoreCase("get")) {
 			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
@@ -121,7 +125,7 @@ public class Background {
 		}
 		
 		//Handle looking at the player inventory
-		if(input.equalsIgnoreCase("i") || input.equalsIgnoreCase("inventory")) {
+		else if(input.equalsIgnoreCase("i") || input.equalsIgnoreCase("inventory")) {
 			if(inventory.isEmpty()) {
 				out.println("Your inventory is empty.");
 			}
@@ -135,7 +139,7 @@ public class Background {
 		}
 		
 		//Handle looking at an item in the inventory/in the location
-		if(input.substring(0,4).equalsIgnoreCase("look")) {
+		else if(input.substring(0,4).equalsIgnoreCase("look")) {
 			for(Iterator<Item> iter = currentLocation.getItems().iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
@@ -193,15 +197,19 @@ public class Background {
 		}
 		
 		//Handle using an item
-		if(input.substring(0,3).equalsIgnoreCase("use")) {
+		else if(input.substring(0,3).equalsIgnoreCase("use")) {
 			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				String temp[] = input.substring(4).split(" ");
 				if(input.substring(4).equalsIgnoreCase(i.getItemName())) { //If there is no target object, use the blank use command
 					i.doUse();
+					if(i.getUses() == 0)
+						removeInventoryItem(i);
 				}
 				else if(temp[0].equalsIgnoreCase(i.getItemName())) { //If there is a target object, use the targeted command
 					i.doTargetUse(temp[1]);
+					if(i.getUses() == 0)
+						removeInventoryItem(i);
 				}
 			}
 		}
@@ -222,7 +230,7 @@ public class Background {
 		 */
 		
 		//Handle dropping an item
-		if(input.substring(0,4).equalsIgnoreCase("drop")) {
+		else if(input.substring(0,4).equalsIgnoreCase("drop")) {
 			for(Iterator<Item> iter = inventory.iterator(); iter.hasNext();) {
 				Item i = iter.next();
 				if(input.substring(5).equalsIgnoreCase(i.getItemName())) {
@@ -234,108 +242,113 @@ public class Background {
 		}
 		
 		//Handle going through an exit
-		if(input.substring(0,2).equalsIgnoreCase("go")) {
+		else if(input.substring(0,2).equalsIgnoreCase("go")) {
 			input = input.substring(3);
 		}
-		if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("north")) {
+		else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("north")) {
 			if(currentLocation.hasExit("north")) {
 				currentLocation = currentLocation.getExits().get(1).getLeadsTo();
-				describeLocation();
+				showLocation();
 			}
 		}
 		else if(input.equalsIgnoreCase("e") || input.equalsIgnoreCase("east")) {
 			if(currentLocation.hasExit("east")) {
 				currentLocation = currentLocation.getExits().get(3).getLeadsTo();
-				describeLocation();
+				showLocation();
 			}
 		}
 		else if(input.equalsIgnoreCase("s") || input.equalsIgnoreCase("south")) {
 			if(currentLocation.hasExit("south")) {
 				currentLocation = currentLocation.getExits().get(2).getLeadsTo();
-				describeLocation();
+				showLocation();
 			}
 		}
 		else if(input.equalsIgnoreCase("w") || input.equalsIgnoreCase("west")) {
 			if(currentLocation.hasExit("west")) {
 				currentLocation = currentLocation.getExits().get(4).getLeadsTo();
-				describeLocation();
+				showLocation();
 			}
+		}
+		
+		//If the command String matches none of these commands, tell the user
+		else {
+			out.println("Invalid command.");
 		}
 	}
 	
 	//Prints out the Location String, describing, it and its contents
-	public void describeLocation() {
+	public static void showLocation() {
 		out.println(currentLocation.toString());
 	}
 	
 	//Add a location to the map
-	public void addLocation(int key, Location value) {
+	public static void addLocation(int key, Location value) {
 		map.put(key, value);
 	}
 	
 	//Remove a location from the map
-	public void removeLocation(int key) {
+	public static void removeLocation(int key) {
 		map.remove(key);
 	}
 	
 	//Return the HashMap of locations
-	public Map<Integer,Location> getLocations() {
+	public static Map<Integer,Location> getLocations() {
 		return map;
 	}
 	
 	//Add an exit to the map
-	public void addExit(int origin, Exit e) {
+	public static void addExit(int origin, Exit e) {
 		map.get(origin).addExit(e);
 	}
 	
 	//Remove an exit from the map
-	public void removeExit(int origin, Exit e) {
+	public static void removeExit(int origin, Exit e) {
 		map.get(origin).removeExit(e);
 	}
 	
 	//Return the list of exits from a location
-	public Vector<Exit> getExits(int loc) {
+	public static Vector<Exit> getExits(int loc) {
 		return map.get(loc).getExits();
 	}
 	
 	//Add an item to the map
-	public void addItem(int location, Item i) {
+	public static void addItem(int location, Item i) {
 		map.get(location).addItem(i);
 	}
 	
 	//Remove an item from the map
-	public void removeItem(int location, Item i) {
+	public static void removeItem(int location, Item i) {
 		map.get(location).removeItem(i);
 	}
 	
 	//Return the list of items in a location
-	public ArrayList<Item> getItems(int loc) {
+	public static ArrayList<Item> getItems(int loc) {
 		return map.get(loc).getItems();
 	}
 	
 	//Set the current location
-	public void setCurrentLocation(int loc) {
+	public static void setCurrentLocation(int loc) {
 		currentLocation = map.get(loc);
 	}
 	
 	//Return the current location
-	public Location getCurrentLocation() {
+	public static Location getCurrentLocation() {
 		return currentLocation;
 	}
 	
 	//Add an item to the inventory
-	public void addInventoryItem(Item i) {
+	public static void addInventoryItem(Item i) {
 		inventory.add(i);
 	}
 	
 	//Remove an item from the inventory
-	public void removeInventoryItem(Item i) {
+	public static void removeInventoryItem(Item i) {
 		if(inventory.contains(i))
 			inventory.remove(i);
 	}
 	
 	//Empty method to make warnings about unused variables go away
-	public void doNothingString(String nothing) {
+	public static void doNothingString(String nothing) {
 		
 	}
 }

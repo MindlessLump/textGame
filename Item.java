@@ -16,11 +16,12 @@ public class Item {
 	}
 	
 	//Full constructor
-	public Item(String name, String place, String item, String pickup, String use, int uses) {
+	public Item(String name, String place, String item, String pickup, String use, String targetUse, int uses) {
 		itemName = name;
 		placeDescription = place;
 		itemDescription = item;
 		onPickup = pickup;
+		onTargetUse = targetUse;
 		onUse = use;
 		if(uses < 0) {
 			infinite = true;
@@ -89,8 +90,7 @@ public class Item {
 	
 	//Perform the onPickup command
 	public void doPickup() {
-		Background b = new Background();
-		b.doCommand(onPickup);
+		Background.doCommand(onPickup);
 	}
 	
 	//Set the onUse command
@@ -100,16 +100,14 @@ public class Item {
 	
 	//Perform the onUse command
 	public void doUse() {
-		Background b = new Background();
-		b.doCommand(onUse);
+		Background.doCommand(onUse);
 		if(!this.isInfinite())
 			itemUses--;
 	}
 	
 	//Perform the onUse command, with a target object
 	public void doTargetUse(String target) {
-		Background b = new Background();
-		b.doCommand(onTargetUse);
+		Background.doCommand(onTargetUse);
 		if(!this.isInfinite())
 			itemUses--;
 	}
