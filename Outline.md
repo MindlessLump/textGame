@@ -26,11 +26,13 @@
   - Can be used
   - Can unlock `Exits`
   - Inputted to the game via a file:
+    * Item name
     * Location number of where it is
     * Place description
     * Item description
     * An onPickup command
     * An onUse command
+    * An onTargetUse command
     * Number of uses (-# for infinite)
 
 #### Background class
